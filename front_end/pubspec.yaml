@@ -1,0 +1,70 @@
+name: banana_ai
+description: "AI-powered banana ripeness analyzer - Ứng dụng phân tích độ chín chuối bằng AI"
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # Camera & Image
+  camera: ^0.11.0+2
+  image_picker: ^1.0.4
+  image: ^4.1.3
+  
+  # Network & HTTP
+  http: ^1.1.0
+  dio: ^5.3.2
+  
+  # State Management
+  provider: ^6.1.1
+  
+  # Local Storage
+  shared_preferences: ^2.2.2
+  sqflite: ^2.3.0
+  
+  # UI Components
+  cupertino_icons: ^1.0.8
+  flutter_svg: ^2.0.9
+  cached_network_image: ^3.3.0
+  
+  # Utils
+  path_provider: ^2.1.2
+  path: ^1.8.3
+  intl: ^0.19.0
+  uuid: ^4.2.1
+  
+  # Loading & Animation
+  flutter_spinkit: ^5.2.0
+  lottie: ^2.7.0
+  
+  # Permissions
+  permission_handler: ^11.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  mockito: ^5.4.2
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/images/
+    - assets/images/tutorial/
+    - assets/animations/
+    - assets/icons/
+  
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf
+        - asset: fonts/Roboto-Bold.ttf
+          weight: 700

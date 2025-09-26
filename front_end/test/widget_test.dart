@@ -28,8 +28,7 @@ void main() {
     // Trigger rebuild
     await tester.pump();
 
-    // Ở đây ta không thể test ảnh thật,
-    // nhưng có thể xác nhận không crash sau khi bấm.
+
     expect(find.byIcon(Icons.camera_alt), findsOneWidget);
   });
 }
