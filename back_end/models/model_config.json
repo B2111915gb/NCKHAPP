@@ -1,0 +1,172 @@
+{
+  "project_info": {
+    "name": "Banana Ripeness Analyzer",
+    "version": "1.0.0",
+    "description": "AI models for analyzing banana ripeness and predicting remaining consumption days",
+    "created_date": "2024-12-19",
+    "last_updated": "2024-12-19"
+  },
+  
+  "yolo_model": {
+    "model_file": "yolo_banana.pt",
+    "model_type": "YOLOv11",
+    "task": "object_detection",
+    "classes": {
+      "0": "banana"
+    },
+    "input_size": [640, 640],
+    "confidence_threshold": 0.5,
+    "iou_threshold": 0.45,
+    "description": "YOLO v11 model trained specifically for banana detection",
+    "training_info": {
+      "dataset_size": "Please update with your training data info",
+      "epochs": "Please update with training epochs",
+      "accuracy": "Please update with model accuracy"
+    }
+  },
+  
+  "regression_model": {
+    "model_file": "regression_model.pkl",
+    "model_type": "sklearn_regressor",
+    "task": "regression",
+    "target": "remaining_days",
+    "features": {
+      "color_features": {
+        "count": 15,
+        "names": [
+          "mean_hue", "std_hue", "mean_saturation", "std_saturation",
+          "mean_value", "std_value", "dominant_color_h", "dominant_color_s",
+          "dominant_color_v", "yellow_ratio", "green_ratio", "brown_ratio",
+          "color_uniformity", "brightness", "contrast"
+        ]
+      },
+      "texture_features": {
+        "count": 10,
+        "names": [
+          "glcm_contrast", "glcm_dissimilarity", "glcm_homogeneity",
+          "glcm_energy", "glcm_correlation", "lbp_uniformity",
+          "edge_density", "smoothness", "roughness", "texture_variance"
+        ]
+      },
+      "shape_features": {
+        "count": 5,
+        "names": [
+          "aspect_ratio", "solidity", "extent", "curvature", "elongation"
+        ]
+      }
+    },
+    "output_range": {
+      "min_days": 0.0,
+      "max_days": 14.0,
+      "description": "Predicted remaining days for banana consumption"
+    },
+    "preprocessing": {
+      "scaling": "StandardScaler",
+      "feature_selection": "none"
+    },
+    "training_info": {
+      "algorithm": "Please update with your regression algorithm (e.g., RandomForest, XGBoost, etc.)",
+      "dataset_size": "Please update with training data size",
+      "r2_score": "Please update with model R² score",
+      "mae": "Please update with Mean Absolute Error",
+      "rmse": "Please update with Root Mean Square Error"
+    }
+  },
+  
+  "feature_extraction": {
+    "total_features": 30,
+    "feature_categories": [
+      {
+        "category": "color",
+        "count": 15,
+        "description": "HSV color statistics, color ratios, brightness, contrast"
+      },
+      {
+        "category": "texture", 
+        "count": 10,
+        "description": "GLCM features, LBP uniformity, edge density, smoothness"
+      },
+      {
+        "category": "shape",
+        "count": 5,
+        "description": "Geometric properties of banana region"
+      }
+    ],
+    "preprocessing_steps": [
+      "Convert PIL Image to OpenCV format",
+      "Crop banana region using YOLO bounding box",
+      "Extract color features from HSV and LAB color spaces",
+      "Calculate texture features using GLCM and LBP",
+      "Compute shape features from contour analysis",
+      "Normalize and handle invalid values"
+    ]
+  },
+  
+  "ripeness_categories": {
+    "green": {
+      "days_range": [5, 7],
+      "description": "Unripe banana, still green",
+      "color_characteristics": "Predominantly green color",
+      "advice": "Let ripen at room temperature"
+    },
+    "yellow": {
+      "days_range": [2, 4],
+      "description": "Ripe banana, yellow with minimal spots", 
+      "color_characteristics": "Bright yellow color",
+      "advice": "Perfect for eating, store in cool dry place"
+    },
+    "spotted": {
+      "days_range": [1, 2],
+      "description": "Very ripe banana with brown spots",
+      "color_characteristics": "Yellow with brown spots",
+      "advice": "Eat soon or use for smoothies/baking"
+    },
+    "brown": {
+      "days_range": [0, 1],
+      "description": "Overripe banana, mostly brown",
+      "color_characteristics": "Predominantly brown color",
+      "advice": "Use immediately for baking or discard if spoiled"
+    }
+  },
+  
+  "api_settings": {
+    "max_image_size": [640, 640],
+    "min_image_size": [224, 224],
+    "supported_formats": ["jpg", "jpeg", "png", "bmp"],
+    "max_file_size_mb": 10,
+    "timeout_seconds": 30
+  },
+  
+  "performance_benchmarks": {
+    "detection_time_ms": "Please update with average detection time",
+    "feature_extraction_time_ms": "Please update with average feature extraction time", 
+    "prediction_time_ms": "Please update with average prediction time",
+    "total_processing_time_ms": "Please update with average total processing time"
+  },
+  
+  "deployment_info": {
+    "python_version": "3.8+",
+    "required_packages": [
+      "flask>=2.3.0",
+      "torch>=2.0.0",
+      "ultralytics>=8.0.0",
+      "opencv-python>=4.8.0",
+      "pillow>=10.0.0",
+      "scikit-learn>=1.3.0",
+      "numpy>=1.24.0"
+    ],
+    "hardware_requirements": {
+      "min_ram_gb": 4,
+      "recommended_ram_gb": 8,
+      "gpu_support": "CUDA optional but recommended for faster inference"
+    }
+  },
+  
+  "usage_notes": {
+    "image_preprocessing": "Images are automatically resized and enhanced before analysis",
+    "confidence_scoring": "Final confidence is minimum of detection and prediction confidence",
+    "error_handling": "Comprehensive error handling with user-friendly messages in Vietnamese",
+    "logging": "Detailed logging for debugging and monitoring",
+    "api_response": "Standardized JSON responses with success/error status"
+  }
+}
